@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_retweet_sel"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_retweeted_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textColor="@color/gray" />
+
+    <com.jaeger.ninegridimageview.NineGridImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/gv_retweeted_image"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        app:imgGap="4dp"
+        app:showStyle="fill"
+        app:singleImgSize="120dp"/>
+
+</LinearLayout>
