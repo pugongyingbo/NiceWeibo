@@ -22,4 +22,5 @@
 
 ## 关于作者
 * 邮件(pugongyingbo#163.com, 把#换成@)
-*  [pugongyignbo.com](http://www.pugongyingbo.com/) 
+* 个人网站 [pugongyignbo.com](http://www.pugongyingbo.com/) 
+* a student from tjpu
