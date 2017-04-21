@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.it.zzb.niceweibo.fragment.CommentMentionFragment">
+    tools:context="com.it.zzb.niceweibo.ui.message.CommentMentionFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/message_list"

@@ -7,23 +7,25 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.it.zzb.niceweibo.R;
 import com.it.zzb.niceweibo.activity.LoginActivity;
-import com.it.zzb.niceweibo.adapter.HomeAdapter;
+import com.it.zzb.niceweibo.ui.home.HomeAdapter;
 import com.it.zzb.niceweibo.api.StatusesAPI;
 import com.it.zzb.niceweibo.constant.AccessTokenKeeper;
 import com.it.zzb.niceweibo.constant.Constants;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
-import com.sina.weibo.sdk.openapi.models.StatusList;
+import com.it.zzb.niceweibo.bean.StatusList;
+import com.sina.weibo.sdk.openapi.legacy.SearchAPI;
 
 
 public class FindFragment extends Fragment {
@@ -31,6 +33,7 @@ public class FindFragment extends Fragment {
     private Oauth2AccessToken mAccessToken;
     private StatusesAPI mStatusApi;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private SearchView mSearchView;
 
     public static FindFragment newInstance(String param1) {
         FindFragment fragment = new FindFragment();
@@ -54,16 +57,53 @@ public class FindFragment extends Fragment {
 //        String agrs1 = bundle.getString("agrs1");
 //        TextView tv = (TextView)view.findViewById(R.id.tv_find);
 //        tv.setText(agrs1);
+        mSearchView = (SearchView) view.findViewById(R.id.searchView);
         findList = (RecyclerView) view.findViewById(R.id.find_list);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
         findList.setLayoutManager(new LinearLayoutManager(getContext()));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadData();
+              //  loadData();
             }
         });
-        loadData();
+
+        // 设置该SearchView显示搜索按钮
+        mSearchView.setSubmitButtonEnabled(true);
+        // 设置该SearchView内默认显示的提示文本
+        mSearchView.setQueryHint("请输入搜索内容");
+        // 设置搜索文本监听
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            // 当点击搜索按钮时触发该方法
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
+                SearchAPI searchAPI = new SearchAPI(getContext(),Constants.APP_KEY,mAccessToken);
+                if (mAccessToken != null && mAccessToken.isSessionValid()) {
+                    //热门微博需要高级授权。。。暂时不做了。
+                    mStatusApi.hotRepostDaily(20,false,mListener);
+                    searchAPI.statuses(query,20,mListener);
+
+                } else {
+                    Toast.makeText(getActivity(), "token不存在，请重新授权",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+                return false;
+            }
+
+            // 当搜索内容改变时触发该方法
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (!TextUtils.isEmpty(newText)){
+
+                }else{
+
+                }
+                return false;
+            }
+        });
+
         return view;
     }
 
@@ -71,6 +111,7 @@ public class FindFragment extends Fragment {
         mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
         mStatusApi = new StatusesAPI(getActivity(), Constants.APP_KEY,
                 mAccessToken);
+
         if (mAccessToken != null && mAccessToken.isSessionValid()) {
             //热门微博需要高级授权。。。暂时不做了。
             mStatusApi.hotRepostDaily(20,false,mListener);

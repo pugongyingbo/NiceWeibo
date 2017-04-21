@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
     android:padding="10dp"
-    android:background="@drawable/side_nav_bar"
+    android:background="@drawable/timg"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <de.hdodenhof.circleimageview.CircleImageView

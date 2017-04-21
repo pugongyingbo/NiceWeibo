@@ -47,8 +47,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/ll_commnet_status"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <TextView

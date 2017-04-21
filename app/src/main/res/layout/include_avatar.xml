@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:weightSum="1">
 
     <ImageView
         android:id="@+id/iv_avatar"
@@ -15,9 +16,10 @@
 
     <RelativeLayout
         android:id="@+id/rl_content"
-        android:layout_width="match_parent"
+        android:layout_width="240dp"
         android:layout_height="72dp"
-        android:padding="16dp" >
+        android:padding="16dp"
+        android:layout_weight="0.40">
 
         <TextView
             android:id="@+id/tv_subhead"
@@ -31,5 +33,14 @@
             android:text="没错,我就是油坊桥吴彦祖"
             android:textColor="@color/txt_gray" />
     </RelativeLayout>
+    <ImageView
+        android:id="@+id/iv_more"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_marginStart="10dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/timeline_icon_more"
+        />
 
 </LinearLayout>

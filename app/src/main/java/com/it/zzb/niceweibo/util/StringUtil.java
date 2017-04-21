@@ -2,7 +2,7 @@ package com.it.zzb.niceweibo.util;
 
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
+
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,9 +19,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.it.zzb.niceweibo.bean.Emotion;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 public class StringUtil {
 
@@ -126,7 +129,8 @@ public class StringUtil {
 
         @Override
         public void onClick(View widget) {
-
+//            Intent intent = UrlActivity.newIntent(context, mUrl);
+//            context.startActivity(intent);
 
         }
     }

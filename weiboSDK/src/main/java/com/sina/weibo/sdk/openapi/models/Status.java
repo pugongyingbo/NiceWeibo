@@ -16,6 +16,7 @@
 
 package com.sina.weibo.sdk.openapi.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -28,7 +29,7 @@ import org.json.JSONObject;
  * @author SINA
  * @since 2013-11-22
  */
-public class Status {
+public class Status  {
     
     /** 微博创建时间 */
     public String created_at;

@@ -4,20 +4,20 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.it.zzb.niceweibo.R;
 import com.it.zzb.niceweibo.adapter.GroupAdapter;
-import com.it.zzb.niceweibo.api.UsersAPI;
+import com.it.zzb.niceweibo.api.GroupAPI;
+import com.it.zzb.niceweibo.bean.Group;
+import com.it.zzb.niceweibo.bean.GroupList;
 import com.it.zzb.niceweibo.constant.AccessTokenKeeper;
 import com.it.zzb.niceweibo.constant.Constants;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
-import com.sina.weibo.sdk.openapi.legacy.GroupAPI;
-import com.sina.weibo.sdk.openapi.models.Group;
-import com.sina.weibo.sdk.openapi.models.GroupList;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,6 @@ public class GroupActivity extends AppCompatActivity {
     private ArrayList<Group> groups;
     private Oauth2AccessToken mAccessToken;
     private ListView listView;
-    private UsersAPI userApi;
     private GroupAPI groupAPI;
 
     @Override
@@ -52,31 +51,33 @@ public class GroupActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-
     }
     private RequestListener mListener = new RequestListener() {
+
         @Override
         public void onComplete(final String response) {
+
             if (!TextUtils.isEmpty(response)) {
+                Log.d("d",response);
+                GroupList groupList = GroupList.parse(response);
 
-
-                if (response.startsWith("{\"friendships\"groups\"")) {
-
-                    GroupList groupList = GroupList.parse(response);
+                Toast.makeText(GroupActivity.this,
+                        "获取分组成功, 条数: " + groupList.groupList.size(),
+                        Toast.LENGTH_LONG).show();
 
                     if (groupList != null && groupList.total_number > 0) {
 
-                        GroupAdapter groupAdapter = new GroupAdapter(getApplicationContext(),groupList);
+                        GroupAdapter groupAdapter = new GroupAdapter(getBaseContext(),groupList);
                         listView.setAdapter(groupAdapter);
                     }
-                }
+
             }
         }
 
         @Override
         public void onWeiboException(WeiboException e) {
             // TODO Auto-generated method stub
-
+            e.printStackTrace();
         }
     };
 }

@@ -74,7 +74,7 @@ public class DataUtil {
             r = seconds + "分前";
         }else if (result >= 3600000 && result < 86400000){// 一天内
             long seconds = result / 3600000;
-            r = seconds + "时";
+            r = seconds + "时前";
         }else if (result >= 86400000 && result < 1702967296){// 三十天内
             long seconds = result / 86400000;
             r = seconds + "天";

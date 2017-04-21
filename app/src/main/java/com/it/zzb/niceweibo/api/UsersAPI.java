@@ -94,7 +94,7 @@ public class UsersAPI extends AbsOpenAPI {
     public String showSync(long uid) {
         WeiboParameters params = new WeiboParameters(mAppKey);
         params.put("uid", uid);
-        String useree= requestSync(sAPIList.get(READ_USER), params, HTTPMETHOD_GET);
+            String useree= requestSync(sAPIList.get(READ_USER), params, HTTPMETHOD_GET);
         return useree;
     }
 

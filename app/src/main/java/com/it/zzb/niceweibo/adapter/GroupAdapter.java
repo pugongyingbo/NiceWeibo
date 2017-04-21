@@ -8,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.it.zzb.niceweibo.R;
-import com.sina.weibo.sdk.openapi.models.Group;
-import com.sina.weibo.sdk.openapi.models.GroupList;
+import com.it.zzb.niceweibo.bean.Group;
+import com.it.zzb.niceweibo.bean.GroupList;
 
 
 /**
@@ -30,12 +30,12 @@ public class GroupAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return groupList.total_number;
+        return groupList.groupList.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return  groupList.groupList.get(position);
+    public Group getItem(int position) {
+        return  groupList == null ? null:groupList.groupList.get(position);
     }
 
 
@@ -55,7 +55,7 @@ public class GroupAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        final Group group =groupList.groupList.get(position);
+        Group group =getItem(position);
         viewHolder.groupName.setText(group.name);
         return convertView;
     }

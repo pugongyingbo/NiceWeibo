@@ -15,7 +15,7 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="私信" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_favorite"
             android:icon="@drawable/ic_menu_manage"
             android:title="收藏" />
     </group>
@@ -27,9 +27,9 @@
                 android:icon="@drawable/ic_menu_share"
                 android:title="设置" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="草稿箱" />
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_menu_share"
+                android:title="退出" />
         </menu>
     </item>
 

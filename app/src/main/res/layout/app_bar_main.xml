@@ -24,6 +24,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <!--<com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout-->
+        <!--xmlns:rfal="http://schemas.android.com/apk/res-auto"-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:id="@+id/fab_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--rfal:rfal_frame_alpha="0.95"-->
+        <!--rfal:rfal_frame_color="#ffffff">-->
+
     <include layout="@layout/content_main" />
 
 
@@ -37,6 +46,26 @@
         android:src="@drawable/ic_add_white_24dp"
         app:layout_behavior="@string/bye_burger_bottom_behavior"
          />
+    <!--<com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton-->
+    <!--xmlns:rfab="http://schemas.android.com/apk/res-auto"-->
+    <!--android:id="@+id/fab_button_group"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_marginBottom="64dp"-->
+    <!--android:layout_marginRight="15dp"-->
+    <!--rfab:rfab_color_normal="@color/colorPrimary"-->
+    <!--rfab:rfab_color_pressed="#263238"-->
+    <!--rfab:rfab_drawable="@drawable/ic_add_white_24dp"-->
+    <!--rfab:rfab_shadow_color="#999999"-->
+    <!--rfab:rfab_shadow_dx="0dp"-->
+    <!--rfab:rfab_shadow_dy="2dp"-->
+    <!--rfab:rfab_shadow_radius="5dp"-->
+    <!--rfab:rfab_size="normal"-->
+        <!--rfab:layout_behavior="@string/bye_burger_bottom_behavior"/>-->
+
+    <!--</com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>-->
 
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:id="@+id/bottom_navigation_bar"
