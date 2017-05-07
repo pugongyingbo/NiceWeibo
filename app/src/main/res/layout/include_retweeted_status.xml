@@ -10,7 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:textColor="@color/gray" />
+        android:textColor="@color/gray"
+        android:textSize="@dimen/home_retweet_weiboitem_font"/>
 
     <com.jaeger.ninegridimageview.NineGridImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"

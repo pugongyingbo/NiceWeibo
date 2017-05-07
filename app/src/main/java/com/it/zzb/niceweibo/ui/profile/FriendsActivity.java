@@ -37,6 +37,8 @@ public class FriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("关注");
+
         //设置为ActionBar
         setSupportActionBar(toolbar);
         //显示那个箭头
@@ -48,7 +50,6 @@ public class FriendsActivity extends AppCompatActivity {
                 finish();
             }
         });
-        toolbar.setTitle("关注");
 
         initView();
     }

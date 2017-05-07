@@ -28,6 +28,8 @@ import com.it.zzb.niceweibo.util.StringUtils;
 import com.it.zzb.niceweibo.util.ToastUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 /**
  * Created by zzb on 2017/4/5.
@@ -70,7 +72,7 @@ public class CommentAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.item_weibo_comment, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.ivAvatar = (ImageView) convertView.findViewById(R.id.iv_avatar);
+            viewHolder.ivAvatar = (CircleImageView) convertView.findViewById(R.id.iv_avatar);
             viewHolder.tvSubhead = (TextView) convertView.findViewById(R.id.tv_subhead);
             viewHolder.tvCaption = (TextView) convertView.findViewById(R.id.tv_caption);
 
@@ -111,7 +113,7 @@ public class CommentAdapter extends BaseAdapter {
 
     public static class ViewHolder {
          TextView content;//评论内容
-         ImageView ivAvatar;//头像
+         CircleImageView ivAvatar;//头像
          TextView tvSubhead;//用户名
          TextView tvCaption;//来源和时间
          ImageView reply_at_comment;//回复图片

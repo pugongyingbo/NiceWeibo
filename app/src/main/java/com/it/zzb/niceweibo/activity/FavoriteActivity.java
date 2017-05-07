@@ -33,6 +33,7 @@ public class FavoriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("收藏");
         //设置为ActionBar
         setSupportActionBar(toolbar);
         //显示那个箭头
@@ -44,7 +45,7 @@ public class FavoriteActivity extends AppCompatActivity {
                 finish();
             }
         });
-        toolbar.setTitle("收藏");
+
 
         recyclerView = (RecyclerView) findViewById(R.id.favorite_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

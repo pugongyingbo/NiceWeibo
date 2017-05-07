@@ -4,13 +4,14 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 
 
 import com.it.zzb.niceweibo.R;
 import com.it.zzb.niceweibo.bean.Status;
-import com.nostra13.universalimageloader.core.ImageLoader;
+
 
 import java.util.ArrayList;
 
@@ -24,37 +25,24 @@ public class PictureActivity extends AppCompatActivity implements ViewPagerAdapt
     private ViewPagerAdapter mAdapter;
     private Context mContext;
     private ImageDetailTopBar mImageDetailTopBar;
-//    private PhotoViewAttacher.OnPhotoTapListener mPhotoTapListener = new PhotoViewAttacher.OnPhotoTapListener() {
-//        @Override
-//        public void onPhotoTap(View view, float v, float v1) {
-//            finish();
-//        }
-//
+    private PhotoViewAttacher.OnPhotoTapListener mPhotoTapListener = new PhotoViewAttacher.OnPhotoTapListener() {
+        @Override
+        public void onPhotoTap(View view, float v, float v1) {
+            finish();
+        }
+
 //        @Override
 //        public void onOutsidePhotoTap() {
 //            finish();
 //        }
-//    };
-   private Toolbar toolbar;
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_picture);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //设置为ActionBar
-        setSupportActionBar(toolbar);
-        //显示那个箭头
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        toolbar.setTitle("图片");
 
         mContext = PictureActivity.this;
         mDatas = this.getIntent().getStringArrayListExtra("imagelist_url");
@@ -76,8 +64,7 @@ public class PictureActivity extends AppCompatActivity implements ViewPagerAdapt
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//                mDatas.remove(position);
-//                mDatas.add(position,status.bmiddle_pic);
+
             }
 
             @Override
@@ -92,8 +79,21 @@ public class PictureActivity extends AppCompatActivity implements ViewPagerAdapt
 
             }
         });
+        mImageDetailTopBar.setOnMoreOptionsListener(new ImageDetailTopBar.OnMoreOptionsListener() {
+            @Override
+            public void onClick(View view) {
+                ImageOptionPopupWindow mPopupWindow = new ImageOptionPopupWindow(mDatas.get(mViewPager.getCurrentItem()), mContext);
+                if (mPopupWindow.isShowing()) {
+                    mPopupWindow.dismiss();
+                } else {
+                    mPopupWindow.showAtLocation(findViewById(R.id.activity_picture), Gravity.BOTTOM, 0, 0);
+                }
+            }
+        });
+
 
     }
+
 
     @Override
     public void onTag() {

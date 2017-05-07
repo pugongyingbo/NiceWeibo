@@ -83,7 +83,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         final GifImageView gifImageView = (GifImageView) mView.findViewById(R.id.gifView);
         final uk.co.senab.photoview.PhotoView norImgView = (uk.co.senab.photoview.PhotoView) mView.findViewById(R.id.norImg);
         setOnClickListener(bgLayout, longImg, gifImageView, norImgView);
-       // setOnLongClickListener(bgLayout, longImg, gifImageView, norImgView, position);
+        setOnLongClickListener(bgLayout, longImg, gifImageView, norImgView, position);
 
         ImageLoader.getInstance().loadImage(mDatas.get(position), null, options, new SimpleImageLoadingListener() {
             @Override
@@ -132,29 +132,29 @@ public class ViewPagerAdapter extends PagerAdapter {
         return mView;
     }
 
-//    private void setOnLongClickListener(final RelativeLayout bgLayout, SubsamplingScaleImageView longImg, GifImageView gifImageView, uk.co.senab.photoview.PhotoView photoView, final int position) {
-//        longImg.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                showPopWindow(bgLayout, position);
-//                return false;
-//            }
-//        });
-//        gifImageView.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                showPopWindow(bgLayout, position);
-//                return false;
-//            }
-//        });
-//        photoView.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                showPopWindow(bgLayout, position);
-//                return false;
-//            }
-//        });
-//    }
+    private void setOnLongClickListener(final RelativeLayout bgLayout, SubsamplingScaleImageView longImg, GifImageView gifImageView, uk.co.senab.photoview.PhotoView photoView, final int position) {
+        longImg.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                showPopWindow(bgLayout, position);
+                return false;
+            }
+        });
+        gifImageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                showPopWindow(bgLayout, position);
+                return false;
+            }
+        });
+        photoView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                showPopWindow(bgLayout, position);
+                return false;
+            }
+        });
+    }
 
     private void setOnClickListener(RelativeLayout relativeLayout, SubsamplingScaleImageView longImg, GifImageView gifImageView, uk.co.senab.photoview.PhotoView photoView) {
         relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -175,17 +175,17 @@ public class ViewPagerAdapter extends PagerAdapter {
                 onSingleTagListener.onTag();
             }
         });
-//        photoView.setOnPhotoTapListener(new uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener() {
-//            @Override
-//            public void onPhotoTap(View view, float v, float v1) {
-//                onSingleTagListener.onTag();
-//            }
+        photoView.setOnPhotoTapListener(new uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener() {
+            @Override
+            public void onPhotoTap(View view, float v, float v1) {
+                onSingleTagListener.onTag();
+            }
 
 //            @Override
 //            public void onOutsidePhotoTap() {
 //                onSingleTagListener.onTag();
 //            }
-//        });
+        });
     }
 
     @Override
@@ -217,14 +217,13 @@ public class ViewPagerAdapter extends PagerAdapter {
         longImg.setImage(ImageSource.uri(file.getAbsolutePath()), new ImageViewState(0, new PointF(0, 0), 0));
     }
 
-//    private void showPopWindow(View parent, int position) {
-//        ImageOptionPopupWindow mPopupWindow = new ImageOptionPopupWindow(mDatas.get(position), mContext);
-//        if (mPopupWindow.isShowing()) {
-//            mPopupWindow.dismiss();
-//        } else {
-//            mPopupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
-//        }
-//    }
-
+    private void showPopWindow(View parent, int position) {
+        ImageOptionPopupWindow mPopupWindow = new ImageOptionPopupWindow(mDatas.get(position), mContext);
+        if (mPopupWindow.isShowing()) {
+            mPopupWindow.dismiss();
+        } else {
+            mPopupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
+        }
+    }
 
 }

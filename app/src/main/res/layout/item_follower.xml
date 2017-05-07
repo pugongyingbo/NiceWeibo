@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="72dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_avatar"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="16dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/head" />
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/head"
+        />
 
     <RelativeLayout
         android:id="@+id/rl_content"
@@ -29,7 +29,6 @@
             android:id="@+id/tv_caption"
             style="@style/TextViewCaption"
             android:layout_alignParentBottom="true"
-            android:text="没错,我就是油坊桥吴彦祖"
             android:textColor="@color/txt_gray" />
     </RelativeLayout>
 

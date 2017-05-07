@@ -15,6 +15,14 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-
+    <ImageView
+        android:id="@+id/more_options"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/home_weiboitem_imagedetail_more_auto"
+        android:scaleType="center" />
 
 </RelativeLayout>

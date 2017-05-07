@@ -26,22 +26,23 @@ public class ImageDetailTopBar extends RelativeLayout {
         super(context, attrs);
         mView = LayoutInflater.from(context).inflate(R.layout.home_image_detail_list_top_bar, this);
         mPageNum = (TextView) mView.findViewById(R.id.pageTextId);
-   //     setUpMoreOptionsEvent();
+        mMoreOptions = (ImageView) mView.findViewById(R.id.more_options);
+        setUpMoreOptionsEvent();
     }
 
     /**
      * 设置了More Options的点击事件，内部调用了监听接口
      */
-//    private void setUpMoreOptionsEvent() {
-//        mMoreOptions.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (mMoreOptionsListener != null) {
-//                    mMoreOptionsListener.onClick(v);
-//                }
-//            }
-//        });
-//    }
+    private void setUpMoreOptionsEvent() {
+        mMoreOptions.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mMoreOptionsListener != null) {
+                    mMoreOptionsListener.onClick(v);
+                }
+            }
+        });
+    }
 
 
     /**
@@ -77,5 +78,4 @@ public class ImageDetailTopBar extends RelativeLayout {
     public void setOnMoreOptionsListener(OnMoreOptionsListener onMoreOptionsListener) {
         this.mMoreOptionsListener = onMoreOptionsListener;
     }
-
 }

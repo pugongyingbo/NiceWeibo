@@ -11,7 +11,14 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 public class BaseApplication extends Application {
-	
+
+	private static Context mContext;
+
+	public static Context getContext() {
+		return mContext;
+	}
+
+
 	@Override
 	public void onCreate() {
 		super.onCreate();

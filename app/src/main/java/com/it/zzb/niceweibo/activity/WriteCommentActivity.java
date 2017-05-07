@@ -52,7 +52,8 @@ public class WriteCommentActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_comment);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //设置为ActionBar
+        toolbar.setTitle("写评论");
+        //设置为ActionBar setTitle要在上面
         setSupportActionBar(toolbar);
         //显示那个箭头
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -63,7 +64,7 @@ public class WriteCommentActivity extends AppCompatActivity implements View.OnCl
                 finish();
             }
         });
-        toolbar.setTitle("写评论");
+
         // 获取Intent传入的微博
         status = (Status) getIntent().getSerializableExtra("status");
 

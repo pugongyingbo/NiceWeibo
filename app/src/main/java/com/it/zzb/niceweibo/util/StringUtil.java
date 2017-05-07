@@ -3,6 +3,7 @@ package com.it.zzb.niceweibo.util;
 import android.content.ClipboardManager;
 import android.content.Context;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.it.zzb.niceweibo.activity.UrlActivity;
+import com.it.zzb.niceweibo.activity.UserActivity;
 import com.it.zzb.niceweibo.bean.Emotion;
 
 import java.util.regex.Matcher;
@@ -111,7 +114,7 @@ public class StringUtil {
     }
 
     /**
-     * 用于weibo text中的连接跳转
+     * 用于weibo text中的链接跳转
      */
     private static class MyURLSpan extends ClickableSpan {
         private String mUrl;
@@ -123,15 +126,14 @@ public class StringUtil {
         }
 
         @Override
-        public void updateDrawState(TextPaint ds) {
-            ds.setColor(Color.parseColor("#f44336"));
+        public void updateDrawState(TextPaint ds){
+            ds.setColor(Color.parseColor("#3F51B5"));
         }
 
         @Override
         public void onClick(View widget) {
-//            Intent intent = UrlActivity.newIntent(context, mUrl);
-//            context.startActivity(intent);
-
+            Intent intent = UrlActivity.newIntent(context, mUrl);
+            context.startActivity(intent);
         }
     }
 
@@ -155,7 +157,9 @@ public class StringUtil {
 
         @Override
         public void onClick(View widget) {
-            mName = mName.substring(1);
+          //  mName = mName.substring(1);
+            Intent intent = new Intent(context, UserActivity.class);
+            context.startActivity(intent);
         }
     }
 
@@ -233,7 +237,7 @@ public class StringUtil {
 
     /**
      * 实现文本复制功能
-     * add by wangqianzhou
+     *
      *
      * @param content
      */

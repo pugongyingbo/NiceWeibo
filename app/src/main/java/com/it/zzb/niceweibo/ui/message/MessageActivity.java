@@ -35,6 +35,7 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("消息");
         //设置为ActionBar
         setSupportActionBar(toolbar);
         //显示那个箭头
@@ -46,7 +47,7 @@ public class MessageActivity extends AppCompatActivity {
                 finish();
             }
         });
-        toolbar.setTitle("消息");
+
 
         initView();
     }

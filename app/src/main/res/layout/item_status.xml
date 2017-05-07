@@ -23,10 +23,10 @@
         style="@style/TextViewBody"
         android:layout_width="match_parent"
         android:text="从前有个人来到了油坊桥,后来他变成了吴彦祖"
+        android:textColor="@color/rl_textcolor"
+        android:textSize="@dimen/home_original_weiboitem_font"
         android:layout_marginTop="-16dp"
         android:padding="16dp" />
-
-
 
     <include
         android:id="@+id/include_retweeted_status"

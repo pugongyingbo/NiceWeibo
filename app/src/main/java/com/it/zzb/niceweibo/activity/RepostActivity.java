@@ -22,7 +22,9 @@ import com.it.zzb.niceweibo.bean.Status;
 import com.it.zzb.niceweibo.constant.AccessTokenKeeper;
 import com.it.zzb.niceweibo.constant.Constants;
 import com.it.zzb.niceweibo.util.StringUtil;
+import com.it.zzb.niceweibo.util.StringUtils;
 import com.it.zzb.niceweibo.util.ViewUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
@@ -44,17 +46,25 @@ public class RepostActivity extends AppCompatActivity implements View.OnClickLis
         private TextView tvWeiboNumber;
         private LinearLayout llEmotionDashboard;
         private ViewPager vpEmotionDashboard;
-        // 待评论的微博
-        private Status status;
+        // 待转发的微博
+        private Status retweeted_status;
         private Oauth2AccessToken mAccessToken;
         private StatusesAPI statusesAPI;
+        // 转发微博内容
+        private View include_retweeted_status_card;
+        private ImageView iv_rstatus_img;
+        private TextView tv_rstatus_username;
+        private TextView tv_rstatus_content;
 
+
+        private Status cardStatus;
         private Toolbar toolbar;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_send_weibo);
             toolbar = (Toolbar) findViewById(R.id.toolbar);
+            toolbar.setTitle("转发微博");
             //设置为ActionBar
             setSupportActionBar(toolbar);
             //显示那个箭头
@@ -66,15 +76,24 @@ public class RepostActivity extends AppCompatActivity implements View.OnClickLis
                     finish();
                 }
             });
-            toolbar.setTitle("转发微博");
+
 
             initView();
 
+
             // 获取Intent传入的微博
-            status = (Status) getIntent().getSerializableExtra("status");
+            retweeted_status = (Status) getIntent().getSerializableExtra("status");
+            initRetweetedStatus();
         }
 
     public void initView(){
+
+        // 转发微博内容
+        include_retweeted_status_card = findViewById(R.id.include_retweeted_status_card);
+        iv_rstatus_img = (ImageView) findViewById(R.id.iv_rstatus_img);
+        tv_rstatus_username = (TextView) findViewById(R.id.tv_rstatus_username);
+        tv_rstatus_content = (TextView) findViewById(R.id.tv_rstatus_content);
+
         etWeibo = (EditText) findViewById(R.id.et_weibo);
         weiboPhotoGrid = (RecyclerView) findViewById(R.id.weibo_photo_grid);
         option = (LinearLayout) findViewById(R.id.option);
@@ -115,20 +134,40 @@ public class RepostActivity extends AppCompatActivity implements View.OnClickLis
 
         }
     }
-
     /**
-     * 填充转发的内容
+     * 初始化引用微博内容
      */
-    private String getRepostText(String text) {
+    private void initRetweetedStatus() {
+        if(retweeted_status != null) {
+            Status rrStatus = retweeted_status.retweeted_status;
+            if(rrStatus != null) {
+                String content = "//@" + retweeted_status.retweeted_status.user.screen_name
+                        + ":" + retweeted_status.text;
+                etWeibo.setText(
+                        StringUtils.getWeiboContent(this, etWeibo, content));
+                cardStatus = rrStatus;
+            } else {
+                cardStatus = retweeted_status;
+            }
 
-        if(status.retweeted_status!=null) {
-            String repostText = text + "//@" + status.user.screen_name+ ":" + status.text;
-            return repostText;
-        }else {
-            return text;
+            String imgUrl = cardStatus.thumbnail_pic;
+            if(TextUtils.isEmpty(imgUrl)) {
+                iv_rstatus_img.setVisibility(View.GONE);
+            } else {
+                iv_rstatus_img.setVisibility(View.VISIBLE);
+                ImageLoader.getInstance().displayImage(imgUrl, iv_rstatus_img);
+            }
+
+            tv_rstatus_username.setText("@" + cardStatus.user.screen_name);
+            tv_rstatus_content.setText(cardStatus.text);
+
+            include_retweeted_status_card.setVisibility(View.VISIBLE);
+        } else {
+            include_retweeted_status_card.setVisibility(View.GONE);
         }
-
     }
+
+
     public void insertTopic(){
         int curPosition = etWeibo.getSelectionStart();
         StringBuilder sb = new StringBuilder(etWeibo.getText().toString());
@@ -151,7 +190,7 @@ public class RepostActivity extends AppCompatActivity implements View.OnClickLis
         statusesAPI = new StatusesAPI(this, Constants.APP_KEY,mAccessToken);
 
         if (mAccessToken != null && mAccessToken.isSessionValid()) {
-            long id =Long.parseLong(status.id) ;
+            long id =Long.parseLong(retweeted_status.id) ;
             String content2 = etWeibo.getText().toString();
             statusesAPI.repost(id,content2,0,mListener);
 

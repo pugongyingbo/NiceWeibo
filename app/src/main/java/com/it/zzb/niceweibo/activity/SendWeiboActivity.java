@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +34,10 @@ import com.it.zzb.niceweibo.constant.Constants;
 import com.it.zzb.niceweibo.util.StringUtil;
 import com.it.zzb.niceweibo.util.ToastUtils;
 import com.it.zzb.niceweibo.util.ViewUtil;
+import com.jaeger.ninegridimageview.NineGridImageView;
+import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
@@ -53,7 +59,7 @@ public class SendWeiboActivity extends AppCompatActivity implements View.OnClick
     private static final int REQUEST_CODE_SOME_FEATURES_PERMISSIONS = 2 ;
     private EditText etWeibo;
     private RecyclerView weiboPhotoGrid;
-    private LinearLayout option;
+    private LinearLayout option1;
     private ImageView weiboLocal;//地址
     private ImageView weiboPhoto;//图片
     private ImageView weiboTopic;//主题
@@ -63,11 +69,18 @@ public class SendWeiboActivity extends AppCompatActivity implements View.OnClick
     private TextView tvWeiboNumber;
     private LinearLayout llEmotionDashboard;
     private ViewPager vpEmotionDashboard;
+    private NineGridImageView nineGridImageView;
     // 待评论的微博
     private Status status;
     private Oauth2AccessToken mAccessToken;
     private StatusesAPI statusesAPI;
     private Toolbar toolbar;
+
+    DisplayImageOptions options = new DisplayImageOptions.Builder()
+            .showImageOnLoading(R.drawable.timeline_image_loading)
+            .showImageOnFail(R.drawable.timeline_image_failure)
+            .bitmapConfig(Bitmap.Config.RGB_565).cacheInMemory(true)
+            .cacheOnDisk(true).build();
 
     private static final int REQUEST_CAMERA_CODE = 11;
     private static final int REQUEST_PREVIEW_CODE = 22;
@@ -77,6 +90,7 @@ public class SendWeiboActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_send_weibo);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("发送微博");
         //设置为ActionBar
         setSupportActionBar(toolbar);
         //显示那个箭头
@@ -88,7 +102,8 @@ public class SendWeiboActivity extends AppCompatActivity implements View.OnClick
                 finish();
             }
         });
-        toolbar.setTitle("发送微博");
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             int hasWritePermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -133,9 +148,10 @@ public class SendWeiboActivity extends AppCompatActivity implements View.OnClick
         }
     }
     public void initView(){
+        nineGridImageView = (NineGridImageView) findViewById(R.id.gv_image);
         etWeibo = (EditText) findViewById(R.id.et_weibo);
         weiboPhotoGrid = (RecyclerView) findViewById(R.id.weibo_photo_grid);
-        option = (LinearLayout) findViewById(R.id.option);
+        option1 = (LinearLayout) findViewById(R.id.option);
         //weiboLocal = (ImageView) findViewById(R.id.weibo_local);
         sendWeibo = (ImageView) findViewById(R.id.send_weibo);
         weiboPhoto = (ImageView) findViewById(R.id.weibo_photo);
@@ -182,29 +198,15 @@ public class SendWeiboActivity extends AppCompatActivity implements View.OnClick
         PhotoPickerIntent intent = new PhotoPickerIntent(SendWeiboActivity.this);
         intent.setSelectModel(SelectModel.SINGLE);
         intent.setShowCarema(true); // 是否显示拍照， 默认false
-// intent.setImageConfig(config);
-        startActivityForResult(intent, REQUEST_CAMERA_CODE);
-    }
-    private ImageCaptureManager captureManager;
 
-//    btnCarema.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            try {
-//                if(captureManager == null){
-//                    captureManager = new ImageCaptureManager(SendWeiboActivity.this);
-//                }
-//                Intent intent = captureManager.dispatchTakePictureIntent();
-//                startActivityForResult(intent, ImageCaptureManager.REQUEST_TAKE_PHOTO);
-//            } catch (IOException e) {
-//                Toast.makeText(SendWeiboActivity.this, R.string.msg_no_camera, Toast.LENGTH_SHORT).show();
-//                e.printStackTrace();
-//            }
-//        }
-//    });
+        startActivityForResult(intent, REQUEST_CAMERA_CODE);
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        ImageCaptureManager captureManager =null;
         if(resultCode == RESULT_OK) {
             switch (requestCode) {
                 // 选择照片
@@ -216,8 +218,20 @@ public class SendWeiboActivity extends AppCompatActivity implements View.OnClick
                     if(captureManager.getCurrentPhotoPath() != null) {
                         captureManager.galleryAddPic();
                         // 照片地址
-                        String imagePaht = captureManager.getCurrentPhotoPath();
+                        String imagePath= captureManager.getCurrentPhotoPath();
                         // ...
+                        if(imagePath != null){
+                            nineGridImageView.setVisibility(View.VISIBLE);
+                            nineGridImageView.setAdapter(new NineGridImageViewAdapter<String>() {
+                                @Override
+                                protected void onDisplayImage(Context context, ImageView imageView,String t) {
+                                    ImageLoader.getInstance().displayImage(t,imageView,options);
+                                }
+                            });
+
+                        }else{
+                            nineGridImageView.setVisibility(View.GONE);
+                        }
                     }
                     break;
                 // 预览
@@ -228,8 +242,20 @@ public class SendWeiboActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    private void refreshAdpater(ArrayList<String> paths){
+    private void refreshAdpater(final ArrayList<String> paths){
         // 处理返回照片地址
+        if(paths.size()>0){
+            nineGridImageView.setVisibility(View.VISIBLE);
+            nineGridImageView.setAdapter(new NineGridImageViewAdapter<String>() {
+                @Override
+                protected void onDisplayImage(Context context, ImageView imageView,String t) {
+                    ImageLoader.getInstance().displayImage(t,imageView,options);
+                }
+            });
+
+        }else{
+            nineGridImageView.setVisibility(View.GONE);
+        }
     }
     public void insertTopic(){
         int curPosition = etWeibo.getSelectionStart();
@@ -251,9 +277,10 @@ public class SendWeiboActivity extends AppCompatActivity implements View.OnClick
         statusesAPI = new StatusesAPI(this,Constants.APP_KEY,mAccessToken);
 
         if (mAccessToken != null && mAccessToken.isSessionValid()) {
-
+            
             statusesAPI.update(content,"0.0","0.0",mListener);
-
+            //带图微博
+           //statusesAPI.upload(content,bitmap,"0.0","0.0",mListener);
         } else {
             Toast.makeText(this, "token不存在，请重新授权", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, LoginActivity.class);

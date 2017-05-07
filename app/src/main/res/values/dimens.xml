@@ -17,5 +17,8 @@
     <dimen name="sticky_nav_host_line_height">1dp</dimen>
     <dimen name="sticky_nav_host_height">44dp</dimen>
 
+    <dimen name="home_retweet_weiboitem_font">15sp</dimen><!--转发内容中的字体大小：15中号，14小号-->
 
+    <!--原创内容的字体大小-->
+    <dimen name="home_original_weiboitem_font">16sp</dimen><!--微博内容中字体大小:16中号,15小号-->
 </resources>

@@ -25,6 +25,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.it.zzb.niceweibo.bean.CommentList;
 import com.it.zzb.niceweibo.bean.Comment;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -54,7 +55,7 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout llCardContent;
-        private ImageView ivAvatar;//头像
+        private CircleImageView ivAvatar;//头像
         private TextView tvAtCommentUserName;//评论人名字
         private TextView tvCaption;//创建时间，地址
         private TextView tvAtCommentText;//评论内容
@@ -65,7 +66,7 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
         public ViewHolder(View view) {
             super(view);
             llCardContent = (LinearLayout) view.findViewById(R.id.ll_card_content);
-            ivAvatar = (ImageView) view.findViewById(R.id.iv_avatar);
+            ivAvatar = (CircleImageView) view.findViewById(R.id.iv_avatar);
             tvAtCommentUserName = (TextView) view.findViewById(R.id.tv_subhead);
             tvCaption = (TextView) view.findViewById(R.id.tv_caption);
             tvAtCommentText = (TextView)view. findViewById(R.id.tv_at_comment_text);

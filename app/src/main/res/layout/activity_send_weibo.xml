@@ -17,6 +17,10 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_collapseMode="pin"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -35,6 +39,23 @@
             android:maxLength="140"
             android:textSize="15sp"/>
 
+
+        <com.jaeger.ninegridimageview.NineGridImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/gv_image"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            app:imgGap="4dp"
+            app:showStyle="fill"
+            app:singleImgSize="120dp"
+            android:visibility="gone"/>
+
+        <include
+            android:id="@+id/include_retweeted_status_card"
+            layout="@layout/include_retweeted_status_card"
+            android:visibility="gone" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/weibo_photo_grid"
             android:layout_width="match_parent"
@@ -43,6 +64,8 @@
             android:background="#fff"/>
 
     </LinearLayout>
+
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/option"

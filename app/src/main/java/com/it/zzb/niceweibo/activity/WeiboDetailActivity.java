@@ -3,10 +3,9 @@ package com.it.zzb.niceweibo.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
@@ -16,18 +15,15 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
+
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.it.zzb.niceweibo.R;
 
 import com.it.zzb.niceweibo.adapter.CommentAdapter;
@@ -36,6 +32,7 @@ import com.it.zzb.niceweibo.bean.FavoriteList;
 import com.it.zzb.niceweibo.constant.AccessTokenKeeper;
 import com.it.zzb.niceweibo.constant.Constants;
 import com.it.zzb.niceweibo.util.DataUtil;
+import com.it.zzb.niceweibo.util.StringUtil;
 import com.it.zzb.niceweibo.util.StringUtils;
 import com.it.zzb.niceweibo.util.ToastUtils;
 import com.jaeger.ninegridimageview.NineGridImageView;
@@ -70,7 +67,7 @@ public class WeiboDetailActivity extends AppCompatActivity implements
 
     private Oauth2AccessToken mAccessToken;
     private CommentsAPI commentsAPI;
-    private Context context = getBaseContext();
+    private Context context =getBaseContext();
     //添加数据
     private Status status ;
 
@@ -110,6 +107,7 @@ public class WeiboDetailActivity extends AppCompatActivity implements
     ImageView iv_more;//更多
     Toolbar toolbar;
     private FavoritesAPI mFavouritesAPI;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     DisplayImageOptions options = new DisplayImageOptions.Builder()
             .showImageOnLoading(R.drawable.timeline_image_loading)
@@ -124,10 +122,25 @@ public class WeiboDetailActivity extends AppCompatActivity implements
 
         fab_layout = (RapidFloatingActionLayout) findViewById(R.id.fab_layout);
         fab_button_group = (RapidFloatingActionButton) findViewById(R.id.fab_button_group);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         initFab();
         initView();
         setData();
         loadData();
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadData();
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 1200);
+
+            }
+        });
+
     }
 
 
@@ -213,10 +226,11 @@ public class WeiboDetailActivity extends AppCompatActivity implements
 
         String time= DataUtil.showTime(status.created_at);
         String from = String.format("%s", Html.fromHtml(status.source));
-        tv_caption.setText(time
-                + " 来自 " + from);
-
-        tv_content.setText(status.text);
+        tv_caption.setText(time + " 来自 " + from);
+        //微博内容的处理
+        SpannableString weiboContent = StringUtil.getWeiBoText(
+                WeiboDetailActivity.this, status.text);
+        tv_content.setText(weiboContent);
 
         if(status.pic_urls != null) {
             gv_images.setVisibility(View.VISIBLE);

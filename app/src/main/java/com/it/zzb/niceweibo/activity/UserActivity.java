@@ -76,7 +76,11 @@ public class UserActivity extends AppCompatActivity {
                     case 1:
                         name.setText(user.screen_name);
                         imageLoader.displayImage(user.avatar_hd,icon_image);
+                        if(user.description!=null){
                         description.setText(user.description);
+                        }else{
+                        description.setText("暂无简介");
+                        }
                         weibo.setText("微博 ："+user.statuses_count);
                         friend.setText("关注 ："+user.friends_count);
                         follower.setText("粉丝 ："+user.followers_count);

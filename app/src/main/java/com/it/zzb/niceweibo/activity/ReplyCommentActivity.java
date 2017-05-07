@@ -47,6 +47,7 @@ public class ReplyCommentActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_comment);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("回复评论");
         //设置为ActionBar
         setSupportActionBar(toolbar);
         //显示那个箭头
@@ -58,7 +59,7 @@ public class ReplyCommentActivity extends AppCompatActivity implements View.OnCl
                 finish();
             }
         });
-        toolbar.setTitle("回复评论");
+
 
         // 获取Intent传入的微博
         status = (Status) getIntent().getSerializableExtra("status");

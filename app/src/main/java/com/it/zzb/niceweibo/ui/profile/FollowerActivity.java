@@ -35,6 +35,7 @@ public class FollowerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follower);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("粉丝");
         //设置为ActionBar
         setSupportActionBar(toolbar);
         //显示那个箭头
@@ -46,7 +47,7 @@ public class FollowerActivity extends AppCompatActivity {
                 finish();
             }
         });
-        toolbar.setTitle("粉丝");
+
 
         followerList = (ListView) findViewById(R.id.follower_list);
         loadData();

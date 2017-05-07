@@ -38,6 +38,8 @@ import com.sina.weibo.sdk.openapi.legacy.FavoritesAPI;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 /**
  * Created by zzb on 2017/4/8.
@@ -68,7 +70,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout ll_card_content;//内容布局
-        ImageView iv_avatar;//头像
+        CircleImageView iv_avatar;//头像
         RelativeLayout rl_content;//用户名布局
         TextView tv_subhead;//用户，名
         TextView tv_caption;//来源和时间
@@ -94,7 +96,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             super(view);
 
             ll_card_content = (LinearLayout)view.findViewById(R.id.ll_card_content);
-            iv_avatar = (ImageView) view.findViewById(R.id.iv_avatar);
+            iv_avatar = (CircleImageView) view.findViewById(R.id.iv_avatar);
             rl_content = (RelativeLayout) view.findViewById(R.id.rl_content);
             tv_subhead = (TextView) view.findViewById(R.id.tv_subhead);
             tv_caption = (TextView) view.findViewById(R.id.tv_caption);

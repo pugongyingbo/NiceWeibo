@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.it.zzb.niceweibo.BaseActivity;
 import com.it.zzb.niceweibo.R;
 import com.it.zzb.niceweibo.api.UsersAPI;
 import com.it.zzb.niceweibo.bean.User;
@@ -38,6 +40,7 @@ import com.it.zzb.niceweibo.ui.home.HomeFragment;
 import com.it.zzb.niceweibo.ui.message.MessageActivity;
 import com.it.zzb.niceweibo.ui.message.MessageFragment;
 import com.it.zzb.niceweibo.ui.profile.ProfileFragment;
+import com.it.zzb.niceweibo.util.CheckNetWork;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
@@ -82,12 +85,27 @@ public class MainActivity extends AppCompatActivity implements
     private RapidFloatingActionHelper rfabHelper;
     private RapidFloatingActionLayout fab_layout;
 
+    public Handler handler=new Handler() {
+        public void handleMessage(Message msg)
+        {
+            String response=(String)msg.obj;
+            Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Message message=new Message();
+        if(!CheckNetWork.isNetworkAvailable(MainActivity.this)){
+            message.obj="网络错误!";
+            handler.sendMessage(message);}
+
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         navigationView.setNavigationItemSelectedListener(this);
@@ -277,25 +295,25 @@ public class MainActivity extends AppCompatActivity implements
         transaction.commit();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//       getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -325,7 +343,10 @@ public class MainActivity extends AppCompatActivity implements
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_setting) {
+            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
 
         } else if (id == R.id.nav_logout) {
             new LogoutAPI(MainActivity.this, Constants.APP_KEY,

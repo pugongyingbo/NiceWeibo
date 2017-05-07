@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.it.zzb.niceweibo.BaseApplication;
 import com.it.zzb.niceweibo.R;
 import com.it.zzb.niceweibo.activity.PictureActivity;
 import com.it.zzb.niceweibo.activity.RepostActivity;
@@ -27,6 +28,7 @@ import com.it.zzb.niceweibo.bean.FavoriteList;
 import com.it.zzb.niceweibo.constant.AccessTokenKeeper;
 import com.it.zzb.niceweibo.constant.Constants;
 import com.it.zzb.niceweibo.util.DataUtil;
+import com.it.zzb.niceweibo.util.StringUtil;
 import com.it.zzb.niceweibo.util.StringUtils;
 import com.it.zzb.niceweibo.util.ToastUtils;
 import com.jaeger.ninegridimageview.NineGridImageView;
@@ -42,6 +44,8 @@ import com.it.zzb.niceweibo.bean.User;
 import com.it.zzb.niceweibo.bean.StatusList;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by zzb on 2017/4/1.
@@ -67,16 +71,16 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             .cacheOnDisk(true).build();
 
     public ProfileAdapter(Context context, StatusList list) {
-        mContext = context;
+        this.mContext = context;
         mStatusList = list;
         mAccessToken = AccessTokenKeeper.readAccessToken(context);
         mFavouritesAPI = new FavoritesAPI(context, Constants.APP_KEY,
                 mAccessToken);
-        imageLoader = ImageLoader.getInstance();
+        this.imageLoader = ImageLoader.getInstance();
     }
     static class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout ll_card_content;
-        ImageView iv_avatar;//头像
+        CircleImageView iv_avatar;//头像
         RelativeLayout rl_content;
         TextView tv_subhead;
         TextView tv_caption;
@@ -107,7 +111,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             iv_more = (ImageView) view.findViewById(R.id.iv_more);
 
             ll_card_content = (LinearLayout)view.findViewById(R.id.ll_card_content);
-            iv_avatar = (ImageView) view.findViewById(R.id.iv_avatar);
+            iv_avatar = (CircleImageView) view.findViewById(R.id.iv_avatar);
             rl_content = (RelativeLayout) view.findViewById(R.id.rl_content);
             tv_subhead = (TextView) view.findViewById(R.id.tv_subhead);
             tv_caption = (TextView) view.findViewById(R.id.tv_caption);
@@ -157,8 +161,8 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         String from = String.format("%s", Html.fromHtml(status.source));
         holder.tv_caption.setText(time
                 + " 来自 " + from);
-        SpannableString weiboContent = StringUtils.getWeiboContent(
-                mContext, holder.tv_content, status.text);
+        SpannableString weiboContent = StringUtil.getWeiBoText(
+                mContext,  status.text);
         holder.tv_content.setText(weiboContent);
 
         if(status.pic_urls != null) {
@@ -199,8 +203,11 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             User retUser = retweeted_status.user;
 
             holder.include_retweeted_status.setVisibility(View.VISIBLE);
+            SpannableString retweetContent = StringUtil.getWeiBoText(
+                    mContext,  retweeted_status.text);
+
             holder.tv_retweeted_content.setText("@" + retUser.name + ":"
-                    + retweeted_status.text);
+                    + retweetContent);
             if(retweeted_status.pic_urls !=null) {
                 holder.gv_retweeted_images.setVisibility(View.VISIBLE);
                 holder.gv_retweeted_images
