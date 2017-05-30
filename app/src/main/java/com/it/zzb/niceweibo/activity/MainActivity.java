@@ -335,7 +335,9 @@ public class MainActivity extends AppCompatActivity implements
 
 
         } else if (id == R.id.nav_slideshow) {
-
+            Intent intent = new Intent(MainActivity.this, MsgActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
 
         } else if (id == R.id.nav_favorite) {
 

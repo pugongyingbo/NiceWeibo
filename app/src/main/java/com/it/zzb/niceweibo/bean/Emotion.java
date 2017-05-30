@@ -66,6 +66,108 @@ public class Emotion implements Serializable {
 		emojiMap.put("[猪头]", R.mipmap.d_zhutou);
 		emojiMap.put("[熊猫]", R.mipmap.d_xiongmao);
 		emojiMap.put("[兔子]", R.mipmap.d_tuzi);
+
+		//浪小花表情
+		emojiMap.put("[悲催]", R.mipmap.lxh_beicui);
+		emojiMap.put("[被电]", R.mipmap.lxh_beidian);
+		emojiMap.put("[崩溃]", R.mipmap.lxh_bengkui);
+		emojiMap.put("[别烦我]", R.mipmap.lxh_biefanwo);
+		emojiMap.put("[不好意思]", R.mipmap.lxh_buhaoyisi);
+		emojiMap.put("[不想上班]", R.mipmap.lxh_buxiangshangban);
+		emojiMap.put("[得意地笑]", R.mipmap.lxh_deyidexiao);
+		emojiMap.put("[给劲]", R.mipmap.lxh_feijin);
+		emojiMap.put("[好爱哦]", R.mipmap.lxh_haoaio);
+		emojiMap.put("[好棒]", R.mipmap.lxh_haobang);
+		emojiMap.put("[好囧]", R.mipmap.lxh_haojiong);
+		emojiMap.put("[好喜欢]", R.mipmap.lxh_haoxihuan);
+		emojiMap.put("[hold住]", R.mipmap.lxh_holdzhu);
+		emojiMap.put("[杰克逊]", R.mipmap.lxh_jiekexun);
+		emojiMap.put("[纠结]", R.mipmap.lxh_jiujie);
+		emojiMap.put("[巨汗]", R.mipmap.lxh_juhan);
+		emojiMap.put("[抠鼻屎]", R.mipmap.lxh_koubishi);
+		emojiMap.put("[困死了]", R.mipmap.lxh_kunsile);
+		emojiMap.put("[雷锋]", R.mipmap.lxh_leifeng);
+		emojiMap.put("[泪流满面]", R.mipmap.lxh_leiliumanmian);
+		emojiMap.put("[玫瑰]", R.mipmap.lxh_meigui);
+		emojiMap.put("[噢耶]", R.mipmap.lxh_oye);
+		emojiMap.put("[霹雳]", R.mipmap.lxh_pili);
+		emojiMap.put("[瞧瞧]", R.mipmap.lxh_qiaoqiao);
+		emojiMap.put("[丘比特]", R.mipmap.lxh_qiubite);
+		emojiMap.put("[求关注]", R.mipmap.lxh_qiuguanzhu);
+		emojiMap.put("[群体围观]", R.mipmap.lxh_quntiweiguan);
+		emojiMap.put("[甩甩手]", R.mipmap.lxh_shuaishuaishou);
+		emojiMap.put("[偷乐]", R.mipmap.lxh_toule);
+		emojiMap.put("[推荐]", R.mipmap.lxh_tuijian);
+		emojiMap.put("[互相膜拜]", R.mipmap.lxh_xianghumobai);
+		emojiMap.put("[想一想]", R.mipmap.lxh_xiangyixiang);
+		emojiMap.put("[笑哈哈]", R.mipmap.lxh_xiaohaha);
+		emojiMap.put("[羞嗒嗒]", R.mipmap.lxh_xiudada);
+		emojiMap.put("[许愿]", R.mipmap.lxh_xuyuan);
+		emojiMap.put("[有鸭梨]", R.mipmap.lxh_youyali);
+		emojiMap.put("[赞啊]", R.mipmap.lxh_zana);
+		emojiMap.put("[震惊]", R.mipmap.lxh_zhenjing);
+		emojiMap.put("[转发]", R.mipmap.lxh_zhuanfa);
+
+		//其他
+		emojiMap.put("[蛋糕]", R.mipmap.o_dangao);
+		emojiMap.put("[飞机]", R.mipmap.o_feiji);
+		emojiMap.put("[干杯]", R.mipmap.o_ganbei);
+		emojiMap.put("[话筒]", R.mipmap.o_huatong);
+		emojiMap.put("[蜡烛]", R.mipmap.o_lazhu);
+		emojiMap.put("[礼物]", R.mipmap.o_liwu);
+		emojiMap.put("[围观]", R.mipmap.o_weiguan);
+		emojiMap.put("[咖啡]", R.mipmap.o_kafei);
+		emojiMap.put("[足球]", R.mipmap.o_zuqiu);
+
+		emojiMap.put("[ok]", R.mipmap.h_ok);
+		emojiMap.put("[躁狂症]", R.mipmap.lxh_zaokuangzheng);
+		emojiMap.put("[威武]", R.mipmap.weiwu);
+		emojiMap.put("[赞]", R.mipmap.h_zan);
+		emojiMap.put("[心]", R.mipmap.l_xin);
+		emojiMap.put("[伤心]", R.mipmap.l_shangxin);
+		emojiMap.put("[月亮]", R.mipmap.w_yueliang);
+		emojiMap.put("[鲜花]", R.mipmap.w_xianhua);
+		emojiMap.put("[太阳]", R.mipmap.w_taiyang);
+		emojiMap.put("[威武]", R.mipmap.weiwu);
+		emojiMap.put("[浮云]", R.mipmap.w_fuyun);
+		emojiMap.put("[神马]", R.mipmap.shenma);
+		emojiMap.put("[微风]", R.mipmap.w_weifeng);
+		emojiMap.put("[下雨]", R.mipmap.w_xiayu);
+
+		emojiMap.put("[沙尘暴]", R.mipmap.w_shachenbao);
+		emojiMap.put("[落叶]", R.mipmap.w_luoye);
+		emojiMap.put("[雪人]", R.mipmap.w_xueren);
+		emojiMap.put("[good]", R.mipmap.h_good);
+		emojiMap.put("[哆啦A梦吃惊]", R.mipmap.dorahaose_mobile);
+		emojiMap.put("[哆啦A梦微笑]", R.mipmap.jqmweixiao_mobile);
+		emojiMap.put("[哆啦A梦花心]", R.mipmap.dorahaose_mobile);
+		emojiMap.put("[弱]", R.mipmap.ruo);
+		emojiMap.put("[炸鸡啤酒]", R.mipmap.d_zhajipijiu);
+		emojiMap.put("[囧]", R.mipmap.jiong);
+		emojiMap.put("[NO]", R.mipmap.buyao);
+		emojiMap.put("[来]", R.mipmap.guolai);
+		emojiMap.put("[互粉]", R.mipmap.f_hufen);
+		emojiMap.put("[握手]", R.mipmap.h_woshou);
+		emojiMap.put("[haha]", R.mipmap.h_haha);
+		emojiMap.put("[织]", R.mipmap.zhi);
+		emojiMap.put("[萌]", R.mipmap.meng);
+		emojiMap.put("[钟]", R.mipmap.o_zhong);
+		emojiMap.put("[给力]", R.mipmap.geili);
+		emojiMap.put("[喜]", R.mipmap.xi);
+		emojiMap.put("[绿丝带]", R.mipmap.o_lvsidai);
+		emojiMap.put("[围脖]", R.mipmap.weibo);
+		emojiMap.put("[音乐]", R.mipmap.o_yinyue);
+		emojiMap.put("[照相机]", R.mipmap.o_zhaoxiangji);
+		emojiMap.put("[耶]", R.mipmap.h_ye);
+		emojiMap.put("[拍照]", R.mipmap.lxhpz_paizhao);
+		emojiMap.put("[白眼]", R.mipmap.landeln_baiyan);
+
+
+		emojiMap.put("[作揖]", R.mipmap.o_zuoyi);
+		emojiMap.put("[拳头]", R.mipmap.quantou_org);
+		emojiMap.put("[X教授]", R.mipmap.xman_jiaoshou);
+		emojiMap.put("[天启]", R.mipmap.xman_tianqi);
+		emojiMap.put("[抢到啦]", R.mipmap.hb_qiangdao_org);
 	}
 	
 	public static int getImgByName(String imgName) {

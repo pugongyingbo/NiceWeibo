@@ -14,7 +14,7 @@
     <application
         android:name=".BaseApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/niceweibo"
+        android:icon="@mipmap/nice80"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -78,19 +78,26 @@
             android:name=".ui.profile.UserActivity2"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.foamtrace.photopicker.PhotoPickerActivity"
-            android:configChanges="orientation|screenSize"
-            android:theme="@style/PhotoPickerTheme" />
-        <activity
-            android:name="com.foamtrace.photopicker.PhotoPreviewActivity"
-            android:theme="@style/PhotoPickerTheme" />
-        <activity
             android:name=".activity.SettingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BaseActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.UrlActivity"></activity>
+        <activity android:name=".activity.UrlActivity" />
+        <activity
+            android:name=".activity.GalleryActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AlbumActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.AccountActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activity.PrivateMsgActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activity.MsgActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

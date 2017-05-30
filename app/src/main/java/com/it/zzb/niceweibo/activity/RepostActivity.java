@@ -22,7 +22,6 @@ import com.it.zzb.niceweibo.bean.Status;
 import com.it.zzb.niceweibo.constant.AccessTokenKeeper;
 import com.it.zzb.niceweibo.constant.Constants;
 import com.it.zzb.niceweibo.util.StringUtil;
-import com.it.zzb.niceweibo.util.StringUtils;
 import com.it.zzb.niceweibo.util.ViewUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -144,7 +143,7 @@ public class RepostActivity extends AppCompatActivity implements View.OnClickLis
                 String content = "//@" + retweeted_status.retweeted_status.user.screen_name
                         + ":" + retweeted_status.text;
                 etWeibo.setText(
-                        StringUtils.getWeiboContent(this, etWeibo, content));
+                        StringUtil.getWeiBoText(this, content));
                 cardStatus = rrStatus;
             } else {
                 cardStatus = retweeted_status;

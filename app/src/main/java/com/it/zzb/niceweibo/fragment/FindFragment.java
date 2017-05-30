@@ -32,7 +32,7 @@ public class FindFragment extends Fragment {
     private Oauth2AccessToken mAccessToken;
     private StatusesAPI mStatusApi;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-
+    private SearchView mSearchView;
 
     public static FindFragment newInstance(String param1) {
         FindFragment fragment = new FindFragment();
@@ -52,55 +52,44 @@ public class FindFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_find, container, false);
-//        Bundle bundle = getArguments();
-//        String agrs1 = bundle.getString("agrs1");
-//        TextView tv = (TextView)view.findViewById(R.id.tv_find);
-//        tv.setText(agrs1);
+        mSearchView = (SearchView) view.findViewById(R.id.searchView);
 
-//        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
-//        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//              //  loadData();
-//            }
-//        });
+        // 设置该SearchView显示搜索按钮
+        mSearchView.setSubmitButtonEnabled(true);
+        // 设置该SearchView内默认显示的提示文本
+        mSearchView.setQueryHint("请输入搜索内容");
+        // 设置搜索文本监听
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            // 当点击搜索按钮时触发该方法
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
+                SearchAPI searchAPI = new SearchAPI(getContext(),Constants.APP_KEY,mAccessToken);
+                if (mAccessToken != null && mAccessToken.isSessionValid()) {
+                    //热门微博需要高级授权。。。暂时不做了。
+                    Toast.makeText(getActivity(), "接口限制，暂不能实现",Toast.LENGTH_LONG).show();
+                   // searchAPI.statuses(query,20,mListener);
 
-//        // 设置该SearchView显示搜索按钮
-//        mSearchView.setSubmitButtonEnabled(true);
-//        // 设置该SearchView内默认显示的提示文本
-//        mSearchView.setQueryHint("请输入搜索内容");
-//        // 设置搜索文本监听
-//        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            // 当点击搜索按钮时触发该方法
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                mAccessToken = AccessTokenKeeper.readAccessToken(getActivity());
-//                SearchAPI searchAPI = new SearchAPI(getContext(),Constants.APP_KEY,mAccessToken);
-//                if (mAccessToken != null && mAccessToken.isSessionValid()) {
-//                    //热门微博需要高级授权。。。暂时不做了。
-//                    mStatusApi.hotRepostDaily(20,false,mListener);
-//                    searchAPI.statuses(query,20,mListener);
-//
-//                } else {
-//                    Toast.makeText(getActivity(), "token不存在，请重新授权",Toast.LENGTH_LONG).show();
-//                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-//                    startActivity(intent);
-//                }
-//                return false;
-//            }
-//
-//            // 当搜索内容改变时触发该方法
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                if (!TextUtils.isEmpty(newText)){
-//
-//                }else{
-//
-//                }
-//                return false;
-//            }
-//        });
-//
+                } else {
+                    Toast.makeText(getActivity(), "token不存在，请重新授权",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+                return false;
+            }
+
+            // 当搜索内容改变时触发该方法
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (!TextUtils.isEmpty(newText)){
+
+                }else{
+
+                }
+                return false;
+            }
+        });
+
        return view;
     }
 

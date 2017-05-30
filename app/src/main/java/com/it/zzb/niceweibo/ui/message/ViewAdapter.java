@@ -18,7 +18,7 @@ import com.it.zzb.niceweibo.activity.ReplyCommentActivity;
 import com.it.zzb.niceweibo.activity.WeiboDetailActivity;
 
 import com.it.zzb.niceweibo.util.DataUtil;
-import com.it.zzb.niceweibo.util.StringUtils;
+import com.it.zzb.niceweibo.util.StringUtil;
 import com.it.zzb.niceweibo.util.ToastUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -101,8 +101,8 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
         holder.tvCaption.setText(time
                 + " 来自 " + from);
         //处理文字
-        SpannableString commentContent = StringUtils.getWeiboContent(
-                context, holder.tvAtCommentText, comment.text);
+        SpannableString commentContent = StringUtil.getWeiBoText(
+                context, comment.text);
 
         holder.tvAtCommentText.setText(commentContent);
 

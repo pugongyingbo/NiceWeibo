@@ -1,6 +1,7 @@
 package com.it.zzb.niceweibo.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -8,6 +9,7 @@ import android.preference.PreferenceFragment;
 
 
 import com.it.zzb.niceweibo.R;
+import com.it.zzb.niceweibo.activity.AccountActivity;
 import com.it.zzb.niceweibo.util.PrefUtils;
 
 
@@ -20,7 +22,7 @@ public class SettingFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.preference);
 
 
-
+        //网络设置
         final CheckBoxPreference checkboxPref = (CheckBoxPreference) getPreferenceManager()
                 .findPreference(getString(R.string.save_net_mode));
 
@@ -38,6 +40,17 @@ public class SettingFragment extends PreferenceFragment {
                 PrefUtils.setSaveNetMode(checked);
                 return true;
 
+            }
+        });
+        //账号管理
+        findPreference("account").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent;
+                intent = new Intent(getActivity(), AccountActivity.class);
+                startActivity(intent);
+                return true;
             }
         });
     }

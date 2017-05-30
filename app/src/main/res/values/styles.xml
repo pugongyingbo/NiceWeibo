@@ -183,7 +183,7 @@
     </style>
     <!-- 设置ActionBar菜单字体 -->
     <style name="ActionMenuTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">
-        <item name="android:textSize">@dimen/action_text_size</item>
+        <item name="android:textSize">@dimen/txtsize_title</item>
         <item name="android:textStyle">normal</item>
     </style>
 

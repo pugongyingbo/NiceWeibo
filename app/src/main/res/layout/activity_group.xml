@@ -12,4 +12,53 @@
       android:id="@+id/group_list">
 
   </ListView>
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="20dp"
+      android:text="全部"
+      android:textSize="@dimen/txtsize_title"
+      android:gravity="center"/>
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="20dp"
+      android:textSize="@dimen/txtsize_title"
+      android:text="特别关注"
+      android:gravity="center"/>
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="20dp"
+      android:textSize="@dimen/txtsize_title"
+      android:text="媒体"
+      android:gravity="center"/>
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="@dimen/txtsize_title"
+      android:layout_margin="20dp"
+      android:text="设计"
+      android:gravity="center"/>
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="@dimen/txtsize_title"
+      android:layout_margin="20dp"
+      android:text="明星"
+      android:gravity="center"/>
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="@dimen/txtsize_title"
+      android:layout_margin="20dp"
+      android:text="书籍"
+      android:gravity="center"/>
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="@dimen/txtsize_title"
+      android:layout_margin="20dp"
+      android:text="互联网"
+      android:gravity="center"/>
 </LinearLayout>

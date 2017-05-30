@@ -175,17 +175,17 @@ public class ViewPagerAdapter extends PagerAdapter {
                 onSingleTagListener.onTag();
             }
         });
-        photoView.setOnPhotoTapListener(new uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener() {
-            @Override
-            public void onPhotoTap(View view, float v, float v1) {
-                onSingleTagListener.onTag();
-            }
+//        photoView.setOnPhotoTapListener(new uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener() {
+//            @Override
+//            public void onPhotoTap(View view, float v, float v1) {
+//                onSingleTagListener.onTag();
+//            }
 
 //            @Override
 //            public void onOutsidePhotoTap() {
 //                onSingleTagListener.onTag();
 //            }
-        });
+//        });
     }
 
     @Override

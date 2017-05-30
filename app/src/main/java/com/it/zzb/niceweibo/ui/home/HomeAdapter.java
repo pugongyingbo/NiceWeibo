@@ -32,16 +32,15 @@ import com.it.zzb.niceweibo.constant.AccessTokenKeeper;
 import com.it.zzb.niceweibo.constant.Constants;
 
 import com.it.zzb.niceweibo.util.DataUtil;
-import com.it.zzb.niceweibo.util.PrefUtils;
+
 import com.it.zzb.niceweibo.util.StringUtil;
-import com.it.zzb.niceweibo.util.StringUtils;
+
 import com.it.zzb.niceweibo.util.ToastUtils;
 import com.jaeger.ninegridimageview.NineGridImageView;
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
@@ -67,6 +66,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>  {
     private Oauth2AccessToken mAccessToken;
 
     private Context mContext;
+    private int flag=0;
 
     /**
      * 微博信息列表
@@ -326,10 +326,22 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>  {
                 }
             });
 
-            //点
+            //点赞
             holder.ll_like_bottom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    switch (flag){
+                        case 0:
+                            holder.ll_like_bottom.setActivated(false);
+                            flag = 1;
+                            break;
+                        case 1:
+                            holder.ll_like_bottom.setActivated(true);
+                            flag = 0;
+                            break;
+                    }
+
                     ToastUtils.showToast(context, "接口限制点赞", Toast.LENGTH_SHORT);
                 }
             });

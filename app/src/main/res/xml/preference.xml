@@ -17,6 +17,11 @@
             android:layout="@layout/preference_item"
             android:summary="删除已缓存的文章内容及图片"
             android:title="清空缓存" />
+        <Preference
+            android:key="account"
+            android:layout="@layout/preference_item"
+            android:summary="添加账号"
+            android:title="账号管理" />
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -4,16 +4,13 @@ import android.content.Context;
 
 
 import android.content.Intent;
-import android.support.v7.widget.PopupMenu;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +20,7 @@ import com.it.zzb.niceweibo.bean.Comment;
 import com.it.zzb.niceweibo.bean.CommentList;
 import com.it.zzb.niceweibo.util.DataUtil;
 
-import com.it.zzb.niceweibo.util.StringUtils;
+import com.it.zzb.niceweibo.util.StringUtil;
 
 import com.it.zzb.niceweibo.util.ToastUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -90,8 +87,8 @@ public class CommentAdapter extends BaseAdapter {
         String time= DataUtil.showTime(comment.created_at);
         viewHolder.tvSubhead.setText(comment.user.screen_name);
         viewHolder.tvCaption.setText(time);
-        SpannableString weiboContent = StringUtils.getWeiboContent(
-                context, viewHolder.content, comment.text);
+        SpannableString weiboContent = StringUtil.getWeiBoText(
+                context, comment.text);
         viewHolder.content.setText(weiboContent);
 
         //点击评论

@@ -130,7 +130,6 @@ public class UserActivity2 extends AppCompatActivity {
         user = (User) getIntent().getSerializableExtra("user");
         if (mAccessToken != null && mAccessToken.isSessionValid()) {
 
-            //long uid = Long.parseLong(status.user.id);
             String screen_name = user.screen_name;
             mStatusApi.userTimeline(screen_name,0,0,30,1,false,0,false,mListener);
 

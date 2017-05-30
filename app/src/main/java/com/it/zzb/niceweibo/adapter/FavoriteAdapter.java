@@ -3,10 +3,13 @@ package com.it.zzb.niceweibo.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,23 +20,25 @@ import android.widget.Toast;
 
 import com.it.zzb.niceweibo.R;
 import com.it.zzb.niceweibo.activity.PictureActivity;
+import com.it.zzb.niceweibo.activity.RepostActivity;
 import com.it.zzb.niceweibo.activity.WeiboDetailActivity;
 import com.it.zzb.niceweibo.activity.WriteCommentActivity;
 import com.it.zzb.niceweibo.bean.Favorite;
 import com.it.zzb.niceweibo.bean.FavoriteList;
 import com.it.zzb.niceweibo.bean.Status;
-import com.it.zzb.niceweibo.bean.StatusList;
 import com.it.zzb.niceweibo.bean.User;
 import com.it.zzb.niceweibo.constant.AccessTokenKeeper;
 import com.it.zzb.niceweibo.constant.Constants;
 import com.it.zzb.niceweibo.util.DataUtil;
-import com.it.zzb.niceweibo.util.StringUtils;
+import com.it.zzb.niceweibo.util.StringUtil;
 import com.it.zzb.niceweibo.util.ToastUtils;
 import com.jaeger.ninegridimageview.NineGridImageView;
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.exception.WeiboException;
+import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.legacy.FavoritesAPI;
 
 import java.util.ArrayList;
@@ -91,10 +96,12 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         LinearLayout ll_like_bottom;
         ImageView iv_like_bottom;
         TextView tv_like_bottom;//点赞
+        ImageView iv_more;//更多
 
         public ViewHolder(View view) {
             super(view);
 
+            iv_more = (ImageView) view.findViewById(R.id.iv_more);
             ll_card_content = (LinearLayout)view.findViewById(R.id.ll_card_content);
             iv_avatar = (CircleImageView) view.findViewById(R.id.iv_avatar);
             rl_content = (RelativeLayout) view.findViewById(R.id.rl_content);
@@ -143,7 +150,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final Favorite favorite = getItem(position);
         final Status status = favorite.status;
         ImageLoader.getInstance().displayImage(status.user.avatar_hd, holder.iv_avatar);
@@ -153,8 +160,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         String from = String.format("%s", Html.fromHtml(status.source));
         holder.tv_caption.setText(time
                 + " 来自 " + from);
-        SpannableString weiboContent = StringUtils.getWeiboContent(
-                context, holder.tv_content, status.text);
+        SpannableString weiboContent = StringUtil.getWeiBoText(
+                context, status.text);
         holder.tv_content.setText(weiboContent);
 
         if(status.pic_urls != null) {
@@ -199,8 +206,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
             holder.include_retweeted_status.setVisibility(View.VISIBLE);
 
-            SpannableString retweetContent = StringUtils.getWeiboContent(
-                    context, holder.tv_retweeted_content,retweeted_status.text);
+            SpannableString retweetContent = StringUtil.getWeiBoText(
+                    context,retweeted_status.text);
 
             holder.tv_retweeted_content.setText("@" + retUser.name + ":"
                     + retweetContent);
@@ -300,7 +307,85 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             }
         });
 
+        //点击显示收藏
+        holder.iv_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(mContext,holder.iv_more);
+                popup.getMenuInflater().inflate(R.menu.favorite_menu, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.favorite:
+                                //收藏
+                                long ids = Long.parseLong(status.id);
+                                mFavouritesAPI.create(ids, mListener);
+                                break;
+                            //取消收藏
+                            case R.id.cancle_favorite:
+                                long id = Long.parseLong(status.id);
+                                mFavouritesAPI.destroy(id, mCancleListener);
+                            case R.id.repost:
+                                //转发
+                                Toast.makeText(mContext, item.getTitle(), Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(mContext, RepostActivity.class);
+                                intent.putExtra("status", status);
+                                mContext.startActivity(intent);
+                            default:
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popup.show();
+            }
+        }) ;
     }
+
+
+    private RequestListener mListener = new RequestListener() {
+
+        @Override
+        public void onComplete(String response) {
+            // TODO Auto-generated method stub
+            if (!TextUtils.isEmpty(response)) {
+                FavoriteList list = FavoriteList.parse(response);
+                if (list != null) {
+                    Toast.makeText(mContext, "收藏成功", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
+        @Override
+        public void onWeiboException(WeiboException e) {
+            // TODO Auto-generated method stub
+            Toast.makeText(mContext, "你已经收藏过这条微博了", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+    };
+    private RequestListener mCancleListener = new RequestListener() {
+
+        @Override
+        public void onComplete(String response) {
+            // TODO Auto-generated method stub
+            if (!TextUtils.isEmpty(response)) {
+                FavoriteList list = FavoriteList.parse(response);
+                if (list != null) {
+                    Toast.makeText(mContext, "取消收藏成功", Toast.LENGTH_LONG)
+                            .show();
+                }
+            }
+        }
+
+        @Override
+        public void onWeiboException(WeiboException e) {
+            // TODO Auto-generated method stub
+            Toast.makeText(mContext, "你还未收藏过这条微博", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+    };
 
     @Override
     public int getItemCount() {

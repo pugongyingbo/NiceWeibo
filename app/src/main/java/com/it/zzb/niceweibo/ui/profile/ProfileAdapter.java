@@ -29,7 +29,6 @@ import com.it.zzb.niceweibo.constant.AccessTokenKeeper;
 import com.it.zzb.niceweibo.constant.Constants;
 import com.it.zzb.niceweibo.util.DataUtil;
 import com.it.zzb.niceweibo.util.StringUtil;
-import com.it.zzb.niceweibo.util.StringUtils;
 import com.it.zzb.niceweibo.util.ToastUtils;
 import com.jaeger.ninegridimageview.NineGridImageView;
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter;

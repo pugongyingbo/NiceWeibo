@@ -25,17 +25,17 @@ public class PictureActivity extends AppCompatActivity implements ViewPagerAdapt
     private ViewPagerAdapter mAdapter;
     private Context mContext;
     private ImageDetailTopBar mImageDetailTopBar;
-    private PhotoViewAttacher.OnPhotoTapListener mPhotoTapListener = new PhotoViewAttacher.OnPhotoTapListener() {
-        @Override
-        public void onPhotoTap(View view, float v, float v1) {
-            finish();
-        }
-
+//  private PhotoViewAttacher.OnPhotoTapListener mPhotoTapListener = new PhotoViewAttacher.OnPhotoTapListener() {
+//        @Override
+//        public void onPhotoTap(View view, float v, float v1) {
+//            finish();
+//        }
+//
 //        @Override
 //        public void onOutsidePhotoTap() {
 //            finish();
 //        }
-    };
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

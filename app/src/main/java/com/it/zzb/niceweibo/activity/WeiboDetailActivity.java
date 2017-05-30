@@ -33,7 +33,6 @@ import com.it.zzb.niceweibo.constant.AccessTokenKeeper;
 import com.it.zzb.niceweibo.constant.Constants;
 import com.it.zzb.niceweibo.util.DataUtil;
 import com.it.zzb.niceweibo.util.StringUtil;
-import com.it.zzb.niceweibo.util.StringUtils;
 import com.it.zzb.niceweibo.util.ToastUtils;
 import com.jaeger.ninegridimageview.NineGridImageView;
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
@@ -70,6 +69,8 @@ public class WeiboDetailActivity extends AppCompatActivity implements
     private Context context =getBaseContext();
     //添加数据
     private Status status ;
+
+    int flag = 0;
 
     //漂浮按钮
     private RapidFloatingActionButton fab_button_group;
@@ -321,12 +322,13 @@ public class WeiboDetailActivity extends AppCompatActivity implements
         tv_like_bottom.setText(status.attitudes_count == 0 ?
                 "赞" : status.attitudes_count + "");
 
+
         //点击显示收藏
         iv_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mFavouritesAPI = new FavoritesAPI(context,Constants.APP_KEY,mAccessToken);
-                PopupMenu popup = new PopupMenu(getBaseContext(),iv_more);
+                PopupMenu popup = new PopupMenu(context,iv_more);
                 popup.getMenuInflater().inflate(R.menu.favorite_menu, popup.getMenu());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
@@ -422,6 +424,16 @@ public class WeiboDetailActivity extends AppCompatActivity implements
                 startActivityForResult(intent, REQUEST_CODE_WRITE_COMMENT);
                 break;
             case R.id.ll_like_bottom:
+                switch (flag){
+                    case 0:
+                        ll_like_bottom.setActivated(false);
+                        flag = 1;
+                        break;
+                    case 1:
+                        ll_like_bottom.setActivated(true);
+                        flag = 0;
+                        break;
+                }
                 Toast.makeText(WeiboDetailActivity.this, "点个赞" ,
                         Toast.LENGTH_LONG).show();
                 break;

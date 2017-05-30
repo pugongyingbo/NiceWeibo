@@ -5,21 +5,28 @@
     * 消息（包括评论我的，@我，我发出的评论，@我的评论）  
     * 个人页面（包括，个人头像，简介，关注，微博，粉丝等）
     * 微博详情页（添加评论，回复评论）
-    * 发送微博页（发送图片未实现，表情话题已实现）
+    * 发送微博页（发送图片、表情、话题均已实现）
     * 首页
-    * ![image](https://github.com/pugongyingbo/NiceWeibo/raw/master/screenshot/home.png)
+    * ![image](https://github.com/pugongyingbo/NiceWeibo/raw/master/screenshot/home1.png)
     * 个人页
     * ![image](https://github.com/pugongyingbo/NiceWeibo/raw/master/screenshot/profile.png)
     * 消息
     * ![image](https://github.com/pugongyingbo/NiceWeibo/raw/master/screenshot/comment.png)
     * 发布微博
     * ![image](https://github.com/pugongyingbo/NiceWeibo/raw/master/screenshot/send.png)
+    * 选择图片
+    * ![image](https://github.com/pugongyingbo/NiceWeibo/raw/master/screenshot/selectpic.png)
     * 转发微博
     * ![image](https://github.com/pugongyingbo/NiceWeibo/raw/master/screenshot/repost.png)
     * 图片保存
     * ![image](https://github.com/pugongyingbo/NiceWeibo/raw/master/screenshot/picture.png)
+    * 侧边栏
+    * ![image](https://github.com/pugongyingbo/NiceWeibo/raw/master/screenshot/side.png)
     * 设置
     * ![image](https://github.com/pugongyingbo/NiceWeibo/raw/master/screenshot/setting.png)
+    * 账号管理
+    * ![image](https://github.com/pugongyingbo/NiceWeibo/raw/master/screenshot/account.png)
+
 * 受限的页面
     
     * 分组查询（接口限制）

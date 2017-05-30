@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.it.zzb.niceweibo.activity.ClickUserActivity;
 import com.it.zzb.niceweibo.activity.UrlActivity;
 import com.it.zzb.niceweibo.activity.UserActivity;
 import com.it.zzb.niceweibo.bean.Emotion;
@@ -134,6 +135,7 @@ public class StringUtil {
         public void onClick(View widget) {
             Intent intent = UrlActivity.newIntent(context, mUrl);
             context.startActivity(intent);
+            ToastUtils.showToast(context, "链接跳转 " , Toast.LENGTH_SHORT);
         }
     }
 
@@ -158,8 +160,11 @@ public class StringUtil {
         @Override
         public void onClick(View widget) {
           //  mName = mName.substring(1);
-            Intent intent = new Intent(context, UserActivity.class);
+            Intent intent = new Intent(context, ClickUserActivity.class);
+            String screen_name = mName.substring(1);
+            intent.putExtra("screenName", screen_name);
             context.startActivity(intent);
+            ToastUtils.showToast(context, "用户: " + mName, Toast.LENGTH_SHORT);
         }
     }
 
@@ -183,6 +188,7 @@ public class StringUtil {
 
         @Override
         public void onClick(View widget) {
+            ToastUtils.showToast(context, "话题: " + mTag, Toast.LENGTH_SHORT);
 //            mTag = mTag.substring(1,mTag.length()-1);
 //            System.out.println("---tag--"+mTag);
 //            Intent intent = TagListActivity.newIntent(context,mTag);

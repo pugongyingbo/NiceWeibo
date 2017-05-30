@@ -185,19 +185,19 @@ public class HomeFragment extends Fragment {
             // TODO Auto-generated method stub
             content_list.setNetWorkError();
             e.printStackTrace();
-           // showEmptyView();
+            showEmptyView();
         }
     };
 
-//    private void showEmptyView(){
-//
-//        content_list.showEmptyView(view1);
-//    }
-//
-//    private void showNetWorkErrorView(){
-//        View view = inflate.inflate(R.layout.view_network_error, null);
-//        content_list.showEmptyView(view);
-//    }
+    private void showEmptyView(){
+
+        content_list.showEmptyView(view);
+    }
+
+    private void showNetWorkErrorView(){
+        View view = inflate.inflate(R.layout.view_network_error, null);
+        content_list.showEmptyView(view);
+    }
 
 
 

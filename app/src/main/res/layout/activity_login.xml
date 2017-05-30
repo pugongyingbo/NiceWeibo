@@ -10,6 +10,10 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/button_blue_normal"
         android:text="授权登录"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txtsize_title"
         android:id="@+id/btn_login"/>
 </LinearLayout>

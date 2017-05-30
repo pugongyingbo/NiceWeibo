@@ -85,7 +85,8 @@
                 android:id="@+id/iv_like_bottom"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/timeline_icon_unlike" />
+                android:src="@drawable/timeline_icon_unlike"
+                 />
 
             <TextView
                 android:id="@+id/tv_like_bottom"

@@ -40,16 +40,19 @@
             android:textSize="15sp"/>
 
 
-        <com.jaeger.ninegridimageview.NineGridImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/gv_image"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+        <com.it.zzb.niceweibo.view.NoScrollGridView
+            android:id="@+id/noScrollgridview"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_width="match_parent"
-            app:imgGap="4dp"
-            app:showStyle="fill"
-            app:singleImgSize="120dp"
-            android:visibility="gone"/>
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="3dp"
+            android:listSelector="#00000000"
+            android:numColumns="3"
+            android:scrollbars="none"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:verticalSpacing="5dp" />
 
         <include
             android:id="@+id/include_retweeted_status_card"

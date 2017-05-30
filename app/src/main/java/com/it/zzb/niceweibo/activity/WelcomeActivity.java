@@ -15,50 +15,37 @@ import java.util.TimerTask;
 public class WelcomeActivity extends AppCompatActivity {
 
     private Intent mStartIntent;
-    private static final int WHAT_INTENT2LOGIN = 1;
-    private static final int WHAT_INTENT2MAIN = 2;
-    private static final long SPLASH_DUR_TIME = 1000;
-
-    public Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-
-            switch (msg.what) {
-                case WHAT_INTENT2LOGIN:
-                    mStartIntent = new Intent(WelcomeActivity.this, LoginActivity.class);
-                    finish();
-                    break;
-                case WHAT_INTENT2MAIN:
-                    mStartIntent = new Intent(WelcomeActivity.this, MainActivity.class);
-                    finish();
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-//        if (AccessTokenKeeper.readAccessToken(this).isSessionValid()) {
-//        mStartIntent = new Intent(WelcomeActivity.this, MainActivity.class);
-//    } else {
-//        mStartIntent = new Intent(WelcomeActivity.this, LoginActivity.class);
-//    }
-
-        if(AccessTokenKeeper.readAccessToken(this).isSessionValid()) {
-            mHandler.sendEmptyMessageDelayed(WHAT_INTENT2MAIN, SPLASH_DUR_TIME);
+        if (AccessTokenKeeper.readAccessToken(this).isSessionValid()) {
+            mStartIntent = new Intent(WelcomeActivity.this, MainActivity.class);
         } else {
-            mHandler.sendEmptyMessageDelayed(WHAT_INTENT2LOGIN, SPLASH_DUR_TIME);
+            mStartIntent = new Intent(WelcomeActivity.this, LoginActivity.class);
         }
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                mHandler.sendMessage(Message.obtain());
+            }
+        }, 500);
+    }
+    public Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            startActivity(mStartIntent);
+            finish();
+        }
+    };
 
-}
     @Override
     protected void onDestroy() {
         mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
+
+
 }
